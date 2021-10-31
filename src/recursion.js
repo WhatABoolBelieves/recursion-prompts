@@ -72,7 +72,6 @@ var range = function(x, y) {
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
   if (exp === 0) {
-    console.log(base, exp)
     return 1;
   }
   if (exp === 1) {
@@ -171,7 +170,20 @@ var buildList = function(value, length) {
 // For numbers which are multiples of both three and five, output “FizzBuzz” instead of the number.
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function(n) {
-};
+  if (n === 0) {
+    return [];
+  }
+  if ((n % 3 === 0) && (n % 5 === 0)) {
+    return ['FizzBuzz'].concat(fizzBuzz(n - 1));
+  }
+  if (n % 3 === 0) {
+    return ['Fizz'].concat(fizzBuzz(n - 1));
+  }
+  if (n % 5 === 0) {
+    return ['Buzz'].concat(fizzBuzz(n - 1));
+  }
+   return [JSON.stringify(n)].concat(fizzBuzz(n - 1));
+};// need to reverse this
 
 // 20. Count the occurrence of a value in a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
@@ -196,6 +208,22 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(obj, 'r') // 2
 // countValuesInObj(obj, 'e') // 1
 var countValuesInObj = function(obj, value) {
+  var objAsAString = '';
+  if (typeof obj === 'object') {
+    objAsAString = JSON.stringify(obj);
+  } else {
+    objAsAString = obj;
+  }
+  if (objAsAString.length === 0) {
+    return 0;
+  }
+  if (objAsAString[0] === ':') {
+    if (objAsAString[2] === value) {
+      return 1 + countValuesInObj(objAsAString.slice(3), value);
+    }
+    return countValuesInObj(objAsAString.slice(2), value);
+  }
+  return countValuesInObj(objAsAString.slice(1), value);
 };
 
 // **24. Find all keys in an object (and nested objects) by a provided name and rename
