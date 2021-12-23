@@ -35,10 +35,7 @@ var arraySum = function(array) {
 // 4. Check if a number is even.
 var isEven = function(n) {
   n = Math.abs(n);
-  if (n === 0 || (n === 1)) {
-    return !n;
-  }
-  return isEven(n - 2);
+  return (n === 0 || (n === 1)) ? !n : isEven(n - 2);
 }
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
@@ -81,7 +78,8 @@ var exponent = function(base, exp) {
     return 1 / base;
   }
   if (exp < 0) {
-    return (1 / base) * exponent(base, exp + 1);
+    var weirdDecimal = (1 / base) * exponent(base, exp + 1);
+    return parseFloat((weirdDecimal).toPrecision(10));
   }
   return base * exponent(base, exp - 1);
 };
